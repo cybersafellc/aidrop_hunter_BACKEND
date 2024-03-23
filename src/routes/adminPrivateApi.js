@@ -1,0 +1,20 @@
+import express from "express";
+import adminController from "../controllers/admin-controller.js";
+import authMiddleware from "../middlewares/auth-middleware.js";
+import permisionPage from "../controllers/permision-controller.js";
+import { upload } from "../applications/multer.js";
+import listAidropController from "../controllers/list-aidrop-controller.js";
+import adsController from "../controllers/ads-controller.js";
+
+const router = express.Router();
+router.use(authMiddleware.adminParameter);
+// router.post("/api/admin/create", adminController.create);
+router.post("/api/admin/login", adminController.login);
+router.use(authMiddleware.adminJwtValidate);
+router.get("/api/admin/permision", permisionPage);
+router.post("/api/list-aidrop/create", listAidropController.create);
+router.put("/api/list-aidrop/update", listAidropController.update);
+router.delete("/api/list-aidrop/delete", listAidropController.deletes);
+router.post("/api/ads/create", adsController.create);
+router.delete("/api/ads/delete", adsController.deletes);
+export default router;
